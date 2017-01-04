@@ -18,3 +18,8 @@ Route::get('/', 'PagesController@getIndex');
 Route::get('about', 'PagesController@getAbout');
 
 Route::resource('posts', 'PostController');
+
+Route::group(['middleware' => ['web']], function(){
+
+
+});
