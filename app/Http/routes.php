@@ -23,6 +23,18 @@ Route::get('about', 'PagesController@getAbout');
 
 Route::resource('posts', 'PostController');
 
+//Authentication Routes
+Route::get('auth/login',  ['uses'=>'Auth\AuthController@getLogin', 'as'=>'login']);
+
+Route::post('auth/login','Auth\AuthController@postLogin');
+
+Route::get('auth/logout',['uses'=>'Auth\AuthController@getLogout', 'as'=>'logout']);
+
+//Registration Routes
+Route::get('auth/register','Auth\AuthController@getRegister');
+Route::post('auth/register','Auth\AuthController@postRegister');
+
+
 Route::group(['middleware' => ['web']], function(){
 
 
