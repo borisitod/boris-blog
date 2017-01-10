@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Post;
 use Mail;
 use Session;
+use GuzzleHttp\Client;
 
 class PagesController extends Controller
 {
@@ -36,7 +37,9 @@ class PagesController extends Controller
         $this->validate($request, [
             'email' => 'required|email',
             'subject' => 'min:3',
-            'message' => 'min:10']);
+            'message' => 'min:10',
+            'g-recaptcha-response' => 'required|recaptcha',
+        ]);
 
         $data = array(
             'email' => $request->email,
@@ -44,14 +47,39 @@ class PagesController extends Controller
             'bodyMessage' => $request->message
         );
 
-        Mail::send('emails.contact', $data, function($message) use ($data){
-            $message->from($data['email']);
-            $message->to('admin@iar.life');
-            $message->subject($data['subject']);
-        });
-
+        Mail::send('emails.contact', $data, function ($message) use ($data) {
+                    $message->from($data['email']);
+                    $message->to('admin@iar.life');
+                    $message->subject($data['subject']);
+                });
         Session::flash('success', 'Your Email was Sent!');
-
         return redirect('/');
+
+//        $token = $request->input('g-recaptcha-response');
+//
+//        if($token){
+//            $client = new Client();
+//            $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
+//                'form_params'=>[
+//                    'secret'=>'6LcSRREUAAAAANYQCN6-GnCJf6oz534ODinYsYfT',
+//                    'response'=>$token
+//                ]
+//            ]);
+//
+//            $result = json_decode($response->getBody()->getContents());
+//            if($result->success) {
+//                Mail::send('emails.contact', $data, function ($message) use ($data) {
+//                    $message->from($data['email']);
+//                    $message->to('admin@iar.life');
+//                    $message->subject($data['subject']);
+//                });
+//                Session::flash('success', 'Your Email was Sent!');
+//                return redirect('/');
+//            }else{
+//                //$result->error_code;
+//                Session::flash('error', 'You are probably a robot');
+//                return redirect()->back();
+//            }
+//        }
     }
 }
