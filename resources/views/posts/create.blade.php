@@ -23,7 +23,7 @@
                     'searchreplace visualblocks code fullscreen',
                     'insertdatetime media table contextmenu paste code'
                 ],
-                toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link',
                 content_css: '//www.tinymce.com/css/codepen.min.css'
             });
     </script>
@@ -34,7 +34,7 @@
         <div class="col-md-8 col-md-offset-2">
             <h1>Create New Post</h1>
             <hr>
-            {!! Form::open(array('route'=>'posts.store')) !!}
+            {!! Form::open(array('route'=>'posts.store', 'files'=>true)) !!}
                 {{Form::label('title','Title:')}}
                 {{Form::text('title',null, array('class'=>'form-control',) )}}
 
@@ -56,6 +56,9 @@
                     @endforeach
 
                 </select>
+
+                {{ Form::label('featured_img', 'Upload a Featured Image') }}
+                {{ Form::file('featured_img') }}
 
                 {{Form::label('body','Body:')}}
                 {{Form::textarea('body',null, array('class'=>'form-control',) )}}

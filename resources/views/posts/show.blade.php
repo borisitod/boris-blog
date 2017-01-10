@@ -6,6 +6,7 @@
 
     <div class="row">
         <div class="col-md-8">
+            <img src="{{asset('/images/' . $post->image)}}"  width="750" class="img-thumbnail" />
             <h1>{{$post->title}}</h1>
             <p class="lead">{!! $post->body !!}</p>
 
