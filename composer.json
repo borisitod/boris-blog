@@ -11,7 +11,8 @@
         "mews/purifier": "^2.0",
         "intervention/image": "^2.3",
         "guzzlehttp/guzzle": "^6.2",
-        "greggilbert/recaptcha": "^2.1"
+        "greggilbert/recaptcha": "^2.1",
+        "filp/whoops": "^2.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

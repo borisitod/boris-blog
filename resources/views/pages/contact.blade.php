@@ -25,7 +25,7 @@
                 </div>
 
                 {{--<div class="g-recaptcha" data-sitekey="6LcSRREUAAAAAGdBTbHqVlxGw4lLGDQatAvTQ03H"></div>--}}
-                {!! Recaptcha::render() !!}
+                {!! Recaptcha::render() !!}composer require filp/whoops
 
                 <input type="submit" value="Send Message" class="btn btn-success btn-h1-spacing">
             </form>
