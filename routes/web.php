@@ -11,20 +11,31 @@
 |
 */
 //Authentication Routes
-Route::get('auth/login',  ['uses'=>'Auth\AuthController@getLogin', 'as'=>'login']);
 
-Route::post('auth/login','Auth\AuthController@postLogin');
+//Route::get('auth/login',  ['uses'=>'Auth\AuthController@getLogin', 'as'=>'login']);
+//
+//Route::post('auth/login','Auth\AuthController@postLogin');
+//
+//Route::get('logout',['uses'=>'Auth\LoginController@logout', 'as'=>'logout']);
 
-Route::get('auth/logout',['uses'=>'Auth\AuthController@getLogout', 'as'=>'logout']);
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::get('logout',['uses'=>'Auth\LoginController@logout', 'as'=>'logout']);
+//Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 //Registration Routes
-Route::get('auth/register','Auth\AuthController@getRegister');
-Route::post('auth/register','Auth\AuthController@postRegister');
+//Route::get('auth/register','Auth\AuthController@getRegister');
+//Route::post('auth/register','Auth\AuthController@postRegister');
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register');
 
 //Password Reset Routes
-Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
-Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
-Route::post('password/reset', 'Auth\PasswordController@reset');
+//Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
+//Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
+//Route::post('password/reset', 'Auth\PasswordController@reset');
+Route::get('password/reset/{token?}', 'Auth\ResetPasswordController@showResetForm');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 //Categories
 Route::resource('categories','CategoryController', ['except'=>['create']]);
