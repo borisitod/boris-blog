@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Post;
 use Mail;
 use Session;
+use Auth;
 use GuzzleHttp\Client;
 
 class PagesController extends Controller
@@ -16,7 +17,11 @@ class PagesController extends Controller
 
     public function getIndex(){
         $posts = Post::orderBy('created_at','desc')->limit(4)->get();
-        return view('pages.welcome', compact('posts'));
+//        if(Auth::check()){
+//            return view('posts.index', compact('posts'));
+//        }else {
+            return view('pages.welcome', compact('posts'));
+
     }
 
     public function getAbout(){
@@ -38,7 +43,7 @@ class PagesController extends Controller
             'email' => 'required|email',
             'subject' => 'min:3',
             'message' => 'min:10',
-            'g-recaptcha-response' => 'required|recaptcha',
+//            'g-recaptcha-response' => 'required|recaptcha',
         ]);
 
         $data = array(

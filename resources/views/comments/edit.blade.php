@@ -1,6 +1,10 @@
-@extends('main')
+@extends('frontend')
 
 @section('title', '| Edit Comment')
+
+@section('head')
+	@include('partials._head')
+@endsection
 
 @section('content')
 

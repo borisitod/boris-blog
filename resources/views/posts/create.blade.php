@@ -1,6 +1,14 @@
-@extends('main')
+@extends('frontend')
 
 @section('title','| Create New Post')
+
+@section('head')
+    @include('partials._head')
+@endsection
+
+@section('nav')
+    @include('partials._nav')
+@stop
 
 @section('stylesheets')
     {!! Html::style('css/parsley.css') !!}

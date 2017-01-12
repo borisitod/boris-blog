@@ -1,6 +1,10 @@
-@extends('main')
+@extends('frontend')
 
 @section('title', '| DELETE COMMENT?')
+
+@section('head')
+	@include('partials._head')
+@endsection
 
 @section('content')
 	

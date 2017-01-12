@@ -1,17 +1,43 @@
-@extends('main')
+@extends('frontend')
 <?php $titleTag = htmlspecialchars($post->title); ?>
 @section('title', " | $titleTag")
 
-@section('content')
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <img src="{{asset('/images/' . $post->image)}}"  width="750" class="img-thumbnail" />
-            <h1>{{$post->title}}</h1>
-            <p>{!! $post->body !!}</p>
-            <hr>
-            <p>Posted In: {{$post->category ? $post->category->name : ""}}</p>
+@section('head')
+    @include('partials._head-frontend')
+@stop
+
+@section('nav')
+    @include('partials._nav-frontend')
+@stop
+
+@section('header')
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url({{ asset('images/'.$post->image) }})">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>{{$post->title}}</h1>
+                        {{--<h2 class="subheading">Problems look mighty small from 150 miles up</h2>--}}
+                        <span class="meta">Posted on {{ date('F nS, Y - g:iA' ,strtotime($post->created_at)) }}</span>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </header>
+@stop
+
+@section('content')
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <p>{{strip_tags($post->body)}}</p>
+                </div>
+            </div>
+
+
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -63,4 +89,7 @@
             {{ Form::close() }}
         </div>
     </div>
+        </div>
+    </article>
 @stop
+

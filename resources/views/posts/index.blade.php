@@ -1,6 +1,14 @@
-@extends('main')
+@extends('frontend')
 
 @section('title','| All Posts')
+
+@section('head')
+    @include('partials._head')
+@endsection
+
+@section('nav')
+    @include('partials._nav')
+@stop
 
 @section('content')
     <div class="row">
