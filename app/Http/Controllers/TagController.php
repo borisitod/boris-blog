@@ -23,7 +23,7 @@ class TagController extends Controller
     public function index()
     {
         $tags = Tag::all();
-        return view('tags.index')->withTags($tags);
+        return view('admin.tags.index')->withTags($tags);
     }
 
     /**
@@ -41,7 +41,7 @@ class TagController extends Controller
 
         Session::flash('success', 'New Tag was successfully created!');
 
-        return redirect()->route('tags.index');
+        return redirect()->route('admin.tags.index');
     }
 
     /**
@@ -65,7 +65,7 @@ class TagController extends Controller
     public function edit($id)
     {
         $tag = Tag::find($id);
-        return view('tags.edit')->withTag($tag);
+        return view('admin.tags.edit')->withTag($tag);
     }
 
     /**
@@ -86,7 +86,7 @@ class TagController extends Controller
 
         Session::flash('success', 'Successfully saved your new tag!');
 
-        return redirect()->route('tags.show', $tag->id);
+        return redirect()->route('admin.tags.show', $tag->id);
     }
 
     /**
@@ -104,6 +104,6 @@ class TagController extends Controller
 
         Session::flash('success', 'Tag was deleted successfully');
 
-        return redirect()->route('tags.index');
+        return redirect()->route('admin.tags.index');
     }
 }
