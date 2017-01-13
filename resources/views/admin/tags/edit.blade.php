@@ -1,4 +1,4 @@
-@extends('frontend')
+@extends('admin.main')
 
 @section('title', "| Edit Tag")
 
