@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\TagCreateRequest;
+use App\Http\Requests\TagUpdateRequest;
 use App\Tag;
 use Session;
 
@@ -15,6 +17,17 @@ class TagController extends Controller
         $this->middleware('auth');
     }
 
+    protected $fields = [
+        'tag' => '',
+        'title' => '',
+        'subtitle' => '',
+        'meta_description' => '',
+        'page_image' => '',
+        'layout' => 'blog.layouts.index',
+        'reverse_direction' => 0,
+    ];
+
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +36,20 @@ class TagController extends Controller
     public function index()
     {
         $tags = Tag::all();
-        return view('admin.tags.index')->withTags($tags);
+        return view('admin.tag.index')->withTags($tags);
+    }
+
+    /**
+     * Show form for creating new tag
+     */
+    public function create()
+    {
+        $data = [];
+        foreach ($this->fields as $field => $default) {
+            $data[$field] = old($field, $default);
+        }
+
+        return view('admin.tag.create', $data);
     }
 
     /**
@@ -32,28 +58,16 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TagCreateRequest  $request)
     {
-        $this->validate($request, array('name' => 'required|max:255'));
-        $tag = new Tag;
-        $tag->name = $request->name;
+        $tag = new Tag();
+        foreach (array_keys($this->fields) as $field) {
+            $tag->$field = $request->get($field);
+        }
         $tag->save();
 
-        Session::flash('success', 'New Tag was successfully created!');
-
-        return redirect()->route('admin.tags.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $tag = Tag::find($id);
-        return view('tags.show')->withTag($tag);
+        return redirect()->route('tags.index')
+            ->withSuccess("The tag '$tag->tag' was created.");
     }
 
     /**
@@ -64,8 +78,13 @@ class TagController extends Controller
      */
     public function edit($id)
     {
-        $tag = Tag::find($id);
-        return view('admin.tags.edit')->withTag($tag);
+        $tag = Tag::findOrFail($id);
+        $data = ['id' => $id];
+        foreach (array_keys($this->fields) as $field) {
+            $data[$field] = old($field, $tag->$field);
+        }
+
+        return view('admin.tag.edit', $data);
     }
 
     /**
@@ -75,18 +94,17 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TagUpdateRequest $request, $id)
     {
-        $tag = Tag::find($id);
+        $tag = Tag::findOrFail($id);
 
-        $this->validate($request, ['name' => 'required|max:255']);
-
-        $tag->name = $request->name;
+        foreach (array_keys(array_except($this->fields, ['tag'])) as $field) {
+            $tag->$field = $request->get($field);
+        }
         $tag->save();
 
-        Session::flash('success', 'Successfully saved your new tag!');
-
-        return redirect()->route('admin.tags.show', $tag->id);
+        return redirect("tags/$id/edit")
+            ->withSuccess("Changes saved.");
     }
 
     /**
@@ -97,13 +115,10 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        $tag = Tag::find($id);
-        $tag->posts()->detach();
-
+        $tag = Tag::findOrFail($id);
         $tag->delete();
 
-        Session::flash('success', 'Tag was deleted successfully');
-
-        return redirect()->route('admin.tags.index');
+        return redirect('tags')
+            ->withSuccess("The '$tag->tag' tag has been deleted.");
     }
 }

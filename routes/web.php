@@ -40,7 +40,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 //Categories
 Route::resource('categories','CategoryController', ['except'=>['create']]);
-Route::resource('tags', 'TagController', ['except' => ['create']]);
+Route::resource('tags', 'TagController',['except' => 'show'] );
 
 // Comments
 Route::post('comments/{post_id}', ['uses' => 'CommentsController@store', 'as' => 'comments.store']);

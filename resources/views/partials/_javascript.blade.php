@@ -9,5 +9,5 @@
 {{Html::script('js/jqBootstrapValidation.js')}}
 {{--{{Html::script('js/contact_me.js')}}--}}
 {{Html::script('js/clean-blog.min.js')}}
-
-
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
