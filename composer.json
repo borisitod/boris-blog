@@ -12,7 +12,9 @@
         "intervention/image": "^2.3",
         "guzzlehttp/guzzle": "^6.2",
         "greggilbert/recaptcha": "^2.1",
-        "filp/whoops": "^2.1"
+        "filp/whoops": "^2.1",
+        "dflydev/apache-mime-types": "^1.0",
+        "league/flysystem-aws-s3-v3": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -28,7 +30,10 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "files": [
+            "app/helpers.php"
+        ]
     },
     "autoload-dev": {
         "classmap": [

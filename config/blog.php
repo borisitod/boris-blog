@@ -10,7 +10,9 @@ return [
     'rss_size' => 25,
     'contact_email' => env('MAIL_FROM'),
     'uploads' => [
-        'storage' => 'local',
-        'webpath' => '/uploads/',
+//        'storage' => 'local',
+//        'webpath' => '/uploads/',
+        'storage' => 's3',
+        'webpath' => 'https://s3-ap-southeast-2.amazonaws.com/boris-blog',
     ],
-];
+]; 

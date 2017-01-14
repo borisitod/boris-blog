@@ -2,6 +2,7 @@
 /node_modules
 /public/storage
 /public/images
+/public/upload
 Homestead.yaml
 Homestead.json
 .env

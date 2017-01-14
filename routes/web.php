@@ -50,6 +50,13 @@ Route::delete('comments/{id}', ['uses' => 'CommentsController@destroy', 'as' => 
 Route::get('comments/{id}/delete', ['uses' => 'CommentsController@delete', 'as' => 'comments.delete']);
 
 
+//uploads
+Route::get('admin/upload', 'UploadController@index');
+Route::post('admin/upload/file', 'UploadController@uploadFile');
+Route::delete('admin/upload/file', 'UploadController@deleteFile');
+Route::post('admin/upload/folder', 'UploadController@createFolder');
+Route::delete('admin/upload/folder', 'UploadController@deleteFolder');
+
 Route::get('blog/{slug}', ['as'=>'blog.single', 'uses'=>'BlogController@getSingle'])->where('slug', '[\w\d\-\_]+');
 
 Route::get('blog', ['uses'=>'BlogController@getIndex', 'as'=>'blog.index']);
