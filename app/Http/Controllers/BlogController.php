@@ -11,13 +11,13 @@ class BlogController extends Controller
 {
     //
     public function getIndex(){
-        $posts = Post::paginate(10);
+        $posts = Post::orderBy('id', 'desc')->paginate(config('blog.posts_per_page'));
 
         return view('blog.index', compact('posts'));
     }
 
     public function getSingle($slug){
-        $post = Post::where('slug', '=', $slug)->first();
+        $post = Post::where('slug', '=', $slug)->firstOrFail();
 
         return view('blog.single')->withPost($post);
 

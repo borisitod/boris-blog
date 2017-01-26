@@ -25,7 +25,7 @@ class CategoryController extends Controller
         //
         $categories = Category::all();
 
-        return view('categories.index', compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -58,7 +58,7 @@ class CategoryController extends Controller
 
         Session::flash('success', 'New Category has been created');
 
-        return redirect()->route('categories.index');
+        return redirect()->route('admin.categories.index');
     }
 
     /**

@@ -27,9 +27,9 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
+        $posts = Post::orderBy('id', 'desc')->paginate(config('blog.posts_per_page'));
 
-        return view('posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -44,7 +44,7 @@ class PostController extends Controller
 
         $tags = Tag::all();
 
-        return view('posts.create',compact('categories', 'tags'));
+        return view('admin.posts.create',compact('categories', 'tags'));
     }
 
     /**
@@ -90,7 +90,7 @@ class PostController extends Controller
 
         Session::flash('success','The blog post was successfully save!');
 
-        return redirect()->route('posts.show', $post->id);
+        return redirect()->route('admin.posts.show', $post->id);
     }
 
     /**
@@ -129,7 +129,7 @@ class PostController extends Controller
             $tags2[$tag->id] = $tag->name;
         }
 
-        return view('posts.edit', compact('post','cats','tags2'));
+        return view('admin.posts.edit', compact('post','cats','tags2'));
     }
 
     /**
@@ -178,7 +178,7 @@ class PostController extends Controller
 
         Session::flash('success','This post was successfully saved.');
 
-        return redirect()->route('posts.show',$post->id);
+        return redirect()->route('admin.posts.show',$post->id);
 
     }
 
@@ -199,7 +199,7 @@ class PostController extends Controller
 
         Session::flash('success','This post was successfully deleted.');
 
-        return redirect()->route('posts.index');
+        return redirect()->route('admin.posts.index');
 
     }
 }

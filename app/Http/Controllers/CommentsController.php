@@ -77,7 +77,7 @@ class CommentsController extends Controller
 
         Session::flash('success', 'Comment updated');
 
-        return redirect()->route('posts.show', $comment->post->id);
+        return redirect()->route('admin.posts.show', $comment->post->id);
     }
 
     public function delete($id)
@@ -100,6 +100,6 @@ class CommentsController extends Controller
 
         Session::flash('success', 'Deleted Comment');
 
-        return redirect()->route('posts.show', $post_id);
+        return redirect()->route('admin.posts.show', $post_id);
     }
 }
